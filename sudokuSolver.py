@@ -10,39 +10,61 @@ grid = np.array([ [3, 0, 6, 5, 0, 8, 4, 0, 0],
                   [0, 0, 0, 0, 0, 0, 0, 7, 4], 
                   [0, 0, 5, 2, 0, 6, 3, 0, 0] ])
 
-def myBox(x,y):
-    if x < 3 and y < 3:
-        return  grid[0:3,0:3]
-    elif 3<=x<6 and y < 3:
-        return grid[0:3,3:6]
-    elif 4<=x<9 and y < 3:
-        return grid[0:3,6:9]
-    elif x < 3 and 3<=x<6:
-        return grid[3:6,0:3]
-    elif 3<=x<6 and 3<=x<6:
-        return grid[3:6,3:6]
-    elif 4<=x<9 and 3<=x<6:
-        return grid[3:6,6:9]
-    elif x < 3 and 4<=x<9:
-        return grid[6:9,0:3]
-    elif 3<=x<6 and 4<=x<9:
-        return grid[6:9,3:6]
-    elif 4<=x<9 and 4<=x<9:
-        return grid[6:9,6:9]
-    else:
-        return False
+
+
+def valid(col,row,num,grid):
+ 
+    for x in range(9):
+        if grid[row][x] == num:
+            return False
+
+    for x in range(9):
+        if grid[x][col] == num:
+            return False
+  
+    startRow = row - row % 3
+    startCol = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if grid[i + startRow][j + startCol] == num:
+                return False
+    return True
 
 
 
 
-def valid(x,y,n,grid):
-    # n = grid[y][x]
-    row = grid[y]
-    column = grid[0:9,x]
-    box = myBox(x,y)
-    if n in row or n in column or n in box:
+def solve(x, y, grid):
+    if y == 8 and x == 9:
         return True
-    else:
-        return False
+    if x == 9:
+        y += 1
+        x = 0
+    if grid[y][x]>0:
+        return solve(x+1,y,grid)
+    for i in range(1,10):
+        if valid(x,y,i,grid):
+            grid[y][x] = i
+            if solve(x+1,y,grid):
+                return True
+        grid[y][x] = 0
+    return False
 
-print(valid(2,1,7,grid))
+print(grid)
+solve(0,0,grid)
+print (grid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
