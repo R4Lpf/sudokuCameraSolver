@@ -40,9 +40,41 @@ def reorder(myPoints):
     myPointsNew[2] = myPoints[np.argmax(diff)]
     
     return myPointsNew
+  
+# 4 TO SPLIT THE IMAGE  
+def splitBoxes(img):
+    rows = np.vsplit(img,9)
+    boxes = []
+    for r in rows:
+        cols = np.hsplit(r,9)
+        for box in cols:
+            boxes.append(box)
+    return boxes
+
+def getPrediction(boxes, model):
+    result = []
+    for image in boxes:
+        img = np.asarray(image)
+        img = img [4:img.shape[0]-4,4:img.shape[1]-4]
+        img = cv2.resize(img, (28,28))
+        img = img/255
+        img = img.reshape(1,28,28,1)
+        ## GET PREDICTION
+        predictions = model.predict(img)
+        classIndex = np.argmax(predictions,axis=-1)
+        probabilityValue = np.amax(predictions)
+        print(classIndex, probabilityValue)
+        ## SAVE TO RESULT
+        if probabilityValue > 0.5:
+            result.append(classIndex[0])
+        else:
+            result.append(0)
+    return result
+
     
-    
-    
+def initializePredictionModel():
+    model = load_model("digitTesseract/myModel.h5")
+    return model
 
 def stackImages(imgArray, scale):
     rows = len(imgArray)

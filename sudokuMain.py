@@ -3,9 +3,9 @@ from utilities import *
 import sudokuSolver
 
 pathImg = "assets/4.jpg"
-heightImg = 330
-widthImg = 330
-
+heightImg = 360 # MUST BE A MULTIPLE OF 9 FOR THE VSPLIT IN PART 4
+widthImg = 360 # MUST BE A MULTIPLE OF 9 FOR THE VSPLIT IN PART 4
+model = initializePredictionModel()
 
 #PREPARE THE IMAGE
 img = cv2.imread(pathImg)
@@ -35,9 +35,9 @@ if biggest.size != 0:
 # SPLITTING THE IMAGE AND GET EACH BOX WITH DIGITS
 
 imgSolvedDigits = imgBlank.copy()
-boxes = splitBoxes(imgWarpColored)
+boxes = np.vsplit(imgWarpColored,9)
+numbers = getPrediction(boxes,model)
 # =============================================================================
-# numbers = getPrediction(boxes,models)
 # imgDetectedDigits = displayNumbers(imgDetectedDigits, numbers, color = (0,0,255))
 # numbers = np.asarray(numbers)
 # posArray = np.where(numbers > 0, 0, 1)
