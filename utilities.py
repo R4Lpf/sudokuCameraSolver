@@ -44,9 +44,11 @@ def reorder(myPoints):
 # 4 TO SPLIT THE IMAGE  
 def splitBoxes(img):
     rows = np.vsplit(img,9)
+    print(rows)
     boxes = []
     for r in rows:
         cols = np.hsplit(r,9)
+        print(cols)
         for box in cols:
             boxes.append(box)
     return boxes
@@ -56,9 +58,9 @@ def getPrediction(boxes, model):
     for image in boxes:
         img = np.asarray(image)
         img = img [4:img.shape[0]-4,4:img.shape[1]-4]
-        img = cv2.resize(img, (28,28))
+        img = cv2.resize(img, (32,32))
         img = img/255
-        img = img.reshape(1,28,28,1)
+        img = img.reshape(1,32,32,1)
         ## GET PREDICTION
         predictions = model.predict(img)
         classIndex = np.argmax(predictions,axis=-1)
@@ -76,6 +78,32 @@ def initializePredictionModel():
     model = load_model("digitTesseract/myModel.h5")
     return model
 
+
+def displayNumbers(img, numbers, color = (255,100,0)):
+    secW = int(img.shape[1]/9)
+    secH = int(img.shape[1]/9)
+    for x in range(9):
+        for y in range(9):
+            if numbers[(y*9)+x] != 0:
+                cv2.putText(img, str(numbers[(y*9)+x]),
+                            (x*secW+int(secW/2)-10, int((y+0.8)*secH)),
+                            cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, color, 2, cv2.LINE_AA)
+    
+    return img
+
+def drawGrid(img):
+    secW = int(img.shape[1]/9)
+    secH = int(img.shape[0]/9)
+    for i in range(9):
+        pt1 = (0,secH*i)
+        pt2 = (img.shape[1], secH*i)
+        pt3 = (secW*i,0)
+        pt4 = (secW*i, img.shape[0])
+        cv2.line(img, pt1,pt2,(230,230,0),2)
+        cv2.line(img, pt3,pt4,(230,230,0),2)
+    return img
+    
+    
 def stackImages(imgArray, scale):
     rows = len(imgArray)
     cols = len(imgArray[0])

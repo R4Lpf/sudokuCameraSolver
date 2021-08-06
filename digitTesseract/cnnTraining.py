@@ -117,7 +117,7 @@ def myModel():
     model = Sequential()
     model.add((Conv2D(nOfFilters,
                        sizeOfFilter1,
-                       input_shape=(imageDimensions[0],imageDimensions[1],1),
+                       input_shape=(32,32,1),
                        activation="relu")))
     model.add((Conv2D(nOfFilters,sizeOfFilter1, activation="relu")))
     model.add(MaxPooling2D(pool_size=sizeOfPool))
@@ -162,8 +162,8 @@ print("Test Score = ",score[0])
 print("Test Accuracy = ",score[1])
 
 
-model = myModel()
-model.save("myModel.h5",save_format='h5')
+
+model.save("myModel.h5")
 # =============================================================================
 # pickle_out = open("model_trained.p","wb")
 # pickle.dump(model,pickle_out)
