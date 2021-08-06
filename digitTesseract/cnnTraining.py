@@ -139,7 +139,7 @@ print(model.summary())
 
 history = model.fit_generator(dataGen.flow(X_train,y_train,
                                 batch_size=batchSizeVal),
-                                steps_per_epoch=len(X_train)//batchSizeVal,
+                                steps_per_epoch=len(X_train)//batchSizeVal, #changed to this to make the epoch training work
                                 epochs=epochsVal,
                                 validation_data = (X_validation, y_validation),
                                 shuffle = 1)
