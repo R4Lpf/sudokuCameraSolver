@@ -34,8 +34,14 @@ if biggest.size != 0:
 
 # SPLITTING THE IMAGE AND GET EACH BOX WITH DIGITS
 
-
-
+imgSolvedDigits = imgBlank.copy()
+boxes = splitBoxes(imgWarpColored)
+# =============================================================================
+# numbers = getPrediction(boxes,models)
+# imgDetectedDigits = displayNumbers(imgDetectedDigits, numbers, color = (0,0,255))
+# numbers = np.asarray(numbers)
+# posArray = np.where(numbers > 0, 0, 1)
+# =============================================================================
 
 
 
