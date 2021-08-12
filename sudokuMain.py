@@ -5,7 +5,7 @@ import sudokuSolver
 pathImg = "assets/4.jpg"
 heightImg = 450 # MUST BE A MULTIPLE OF 9 FOR THE VSPLIT IN PART 4
 widthImg = 450 # MUST BE A MULTIPLE OF 9 FOR THE VSPLIT IN PART 4
-model = initializePredictionModel()
+model = initializePredictionModel("digitTesseract/myModel.h5")
 
 # 1 PREPARE THE IMAGE
 img = cv2.imread(pathImg)

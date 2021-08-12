@@ -74,8 +74,8 @@ def getPrediction(boxes, model):
     return result
 
     
-def initializePredictionModel():
-    model = load_model("digitTesseract/myModel.h5")
+def initializePredictionModel(modelPath):
+    model = load_model(modelPath)
     return model
 
 
