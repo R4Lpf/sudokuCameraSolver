@@ -1,26 +1,22 @@
 # Sudoku Image Solver
-This is the first step toward an attempt to make a sudoku camera solver
-Taken a lot from Murtaza's tutorial
+This is the first step toward an attempt to make a sudoku camera solver taking a lot from Murtaza's guide.
+
 ## Example Sudoku Puzzle:
-![newplot (1)](https://user-images.githubusercontent.com/37660959/99654347-77302800-2a5a-11eb-8267-494e2992e9cc.png)
+![4](https://user-images.githubusercontent.com/37660959/129197883-af4553d5-88c2-4833-a847-8b4fdb44c9fd.jpg)
 ## Example Solution: 
-Here I just changed the colorscale attribute of 'trace' from 'Magma' to 'rdylgn'
-![newplot (2)](https://user-images.githubusercontent.com/37660959/99801639-aae08000-2b36-11eb-9994-db3b4a99063d.png)
+![solved sudoku](https://user-images.githubusercontent.com/37660959/129197896-ce2afd29-9e30-4c23-bc2b-f14fc98a9f5e.jpg)
 
-## UPDATE:
-Now you can change the the view mode of the graph to lines, markers and line&markers, a range bar was added to view the progress in a specific part of your journey and now there are a play and a pause button for the animation of your progress in parts of 100 races each.
-### Markers
-<img width="960" alt="markers update" src="https://user-images.githubusercontent.com/37660959/104643253-6c85be00-56ac-11eb-94e3-86568d04d3b9.png">
+## 1. Train your digit recognition model:
+Go to digitTesseract/cnnTraining.py on your prefered IDE and change "epochsVal" to how many eppochs you want to train the model (recommended minimum of 10) and the name of the model when you have to save it (which is the last non-commented line of code), then run the file on spyder if you use spyder or directly from the command promt ("python cnnTraining.py")
 
-### Lines
-<img width="960" alt="lines update" src="https://user-images.githubusercontent.com/37660959/104643294-7dceca80-56ac-11eb-97a0-d823414959f0.png">
+## 2. Upload sudoku images and use the model trained:
+If you want to solve different sudokus from the ones on the assets directory, just put some jpg files of sudoku in it and change the path name in sudokuMain.py then change the path of the model when the function "initializePredictionModel" is called to the name you gave your model. Then just run the sudokuMain.py file.
 
-### Lines & Markers
-<img width="960" alt="lines+markers update" src="https://user-images.githubusercontent.com/37660959/104643306-832c1500-56ac-11eb-83d8-2fa26552d66b.png">
-
+## TO DO:
+Make it so that points 1 and 2 are as easy as possible in an application or automatically done.
 
 ## Installation
-Before you run the program install _**pandas**_ and _**plotly**_ libraries if you don't have them installed already:
-* Open up your comand promt and type:
-    * _**-pip install pandas**_
-    * _**-pip install plotly**_
+Before you run the program install the required libraries if you don't have them installed already:
+* Open up your comand promt, cd to the main directory with the requirements.txt file in it, and type:
+    * _**-pip install -r requirements.txt**_
+           
