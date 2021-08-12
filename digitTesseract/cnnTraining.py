@@ -18,7 +18,7 @@ valRatio = 0.2
 imageDimensions = (32,32,3)
 
 batchSizeVal = 50
-epochsVal = 20
+epochsVal = 10
 stepsForEpochVal = 2000
 
 ###################################################################################
@@ -163,7 +163,7 @@ print("Test Accuracy = ",score[1])
 
 
 
-model.save("myModel.h5")
+model.save("myModel10.h5")
 # =============================================================================
 # pickle_out = open("model_trained.p","wb")
 # pickle.dump(model,pickle_out)
