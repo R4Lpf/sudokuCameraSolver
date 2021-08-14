@@ -12,26 +12,26 @@ from tensorflow.keras.optimizers import *
 
 import pickle
 ###################################################################################
-path = "myData"
-testRatio = 0.2
-valRatio = 0.2
-imageDimensions = (32,32,3)
+PATH = "myData"
+TEST-RATIO = 0.2
+VAL-RATIO = 0.2
+IMAGE-DIMENSIONS = (32,32,3)
 
-batchSizeVal = 50
-epochsVal = 10
-stepsForEpochVal = 2000
+BATCH-SIZE-VAL = 50
+EPOCHS-VAL = 10
+STEPS-FOR-EPOCH-VAL = 2000
 
 ###################################################################################
 images = []
 classN = []
-myList = os.listdir(path)
+myList = os.listdir(PATH)
 nOfClasses = len(myList)
 
 for x in range(nOfClasses):
-    myPicList = os.listdir(path+"/"+str(x))
+    myPicList = os.listdir(PATH+"/"+str(x))
     for y in myPicList:
-        curImg = cv2.imread(path+"/"+str(x)+"/"+y)
-        curImg = cv2.resize(curImg, (imageDimensions[0],imageDimensions[1]))
+        curImg = cv2.imread(PATH+"/"+str(x)+"/"+y)
+        curImg = cv2.resize(curImg, (IMAGE-DIMENSIONS[0],IMAGE-DIMENSIONS[1]))
         images.append(curImg)
         classN.append(x)
     print(x,end = " ")
@@ -45,8 +45,8 @@ classN = np.array(classN)
 print(images.shape)
 
 # SPLITTING THE DATA
-X_train, X_test, y_train, y_test  = train_test_split(images, classN, test_size = testRatio) 
-X_train, X_validation, y_train, y_validation  = train_test_split(X_train, y_train, test_size = valRatio) 
+X_train, X_test, y_train, y_test  = train_test_split(images, classN, test_size = TEST-RATIO) 
+X_train, X_validation, y_train, y_validation  = train_test_split(X_train, y_train, test_size = VAL-RATIO) 
 
 print(np.where(y_train==0))
 
@@ -138,9 +138,9 @@ model = myModel()
 print(model.summary())
 
 history = model.fit_generator(dataGen.flow(X_train,y_train,
-                                batch_size=batchSizeVal),
-                                steps_per_epoch=len(X_train)//batchSizeVal, #changed to this to make the epoch training work
-                                epochs=epochsVal,
+                                batch_size=BATCH-SIZE-VAL),
+                                steps_per_epoch=len(X_train)//BATCH-SIZE-VAL, #changed to this to make the epoch training work
+                                epochs=EPOCHS-VAL,
                                 validation_data = (X_validation, y_validation),
                                 shuffle = 1)
 

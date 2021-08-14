@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 
 
 # 1 PREPARE THE IMAGE
-def preProcess(img):
+def pre_process_img(img):
     grayImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blurImg = cv2.GaussianBlur(grayImg, (5,5), 1)
     imgThreshold = cv2.adaptiveThreshold(blurImg, 255, 1, 1, 11, 2)
@@ -12,7 +12,7 @@ def preProcess(img):
     
 
 # 3 FIND BIGGEST CONTOUR
-def biggestContour(contours):
+def find_biggest_contour(contours):
     biggest = np.array([])
     max_area = 0
     for c in contours:
@@ -42,7 +42,7 @@ def reorder(myPoints):
     return myPointsNew
   
 # 4 TO SPLIT THE IMAGE  
-def splitBoxes(img):
+def split_sudoku_sections(img):
     rows = np.vsplit(img,9)
     print(rows)
     boxes = []
@@ -53,7 +53,7 @@ def splitBoxes(img):
             boxes.append(box)
     return boxes
 
-def getPrediction(boxes, model):
+def get_prediction(boxes, model):
     result = []
     for image in boxes:
         img = np.asarray(image)
@@ -74,12 +74,12 @@ def getPrediction(boxes, model):
     return result
 
     
-def initializePredictionModel(modelPath):
+def initialize_prediction_model(modelPath):
     model = load_model(modelPath)
     return model
 
 
-def displayNumbers(img, numbers, color = (255,100,0)):
+def display_numbers(img, numbers, color = (255,100,0)):
     secW = int(img.shape[1]/9)
     secH = int(img.shape[1]/9)
     for x in range(9):
@@ -91,7 +91,7 @@ def displayNumbers(img, numbers, color = (255,100,0)):
     
     return img
 
-def drawGrid(img):
+def draw_grid(img):
     secW = int(img.shape[1]/9)
     secH = int(img.shape[0]/9)
     for i in range(9):
@@ -104,7 +104,7 @@ def drawGrid(img):
     return img
     
     
-def stackImages(imgArray, scale):
+def stack_images(imgArray, scale):
     rows = len(imgArray)
     cols = len(imgArray[0])
     rowsAvailable = isinstance(imgArray[0], list)
